@@ -1,0 +1,72 @@
+now
+---
+lowercase all ops automatically
+checks shouldn't have to be under CGI::ValidOp::Check
+checks should be found locally on the filesystem
+decide:
+    new({
+        -config
+        param/op
+    })
+    OR
+    new({
+        config
+        params/ops => { param/op }
+    })
+
+file upload
+-----------
+use CGI qw/ -private_tempfiles /;
+- or -
+CGI::private_tempfiles(1);
+
+<form enctype="multipart/form-data">
+    - test with: application/x-www-form-urlencoded
+check cgi_error
+size and type per file?
+cgi->upload (new in 2.47)
+
+
+    $fh = upload('uploaded_file');
+    while (<$fh>) {
+        print;
+    }
+
+    $filename = param('uploaded_file');
+    $type = uploadInfo($filename)->{'Content-Type'};
+    unless ($type eq 'text/html') {
+        die "HTML FILES ONLY!";
+    }
+
+
+    my $handler = CGI::Untaint->new( map { $_ => $cgi->param($_) } $cgi->param);
+    # NOT my $handler = CGI::Untaint->new( $cgi->Vars ); !
+    # It's important that you use CGI->param rather than CGI->Vars as the latter
+    # only returns the uploaded file's name and not its contents.
+
+
+maybe
+-----
+make ::Param->{ errors } a hashref -- ::Param
+warnings, add_error, errors -- in ::Base?
+find a better way to pass around error_decoration
+
+later
+-----
+auto-vivify ops? -- ValidOp::add_param
+
+
+done
+----
+better parsing of incoming params -- ValidOp::add_param
+better error message if require fails -- ::Param::load_pkg
+setting 'op' should also create Op object -- ValidOp::op
+needs 'name' method -- ::Base
+needs 'param' method -- ::Op
+needs 'Param' method -- ::Op
+needs 'params' method -- ::Op (note is in ValidOp)
+needs 'Params' method -- ::Op (note is in ValidOp)
+allow_unexpected -- ValidOp::make_params
+ValidOp::Vars
+ValidOp::errors
+make 'default' a variable instead of hardcoded -- ::Param::check_one

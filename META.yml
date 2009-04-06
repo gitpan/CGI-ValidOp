@@ -1,0 +1,25 @@
+---
+abstract: 'Simple validation of CGI parameters and runmodes.'
+author:
+  - '-2005 Randall Hansen. All rights reserved.'
+build_requires:
+  Test::Exception: 0
+  Test::More: 0
+distribution_type: module
+generated_by: 'Module::Install version 0.77'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: CGI-ValidOp
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  CGI: 0
+  HTML::Entities: 0
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: https://svn.opensourcery.com/public/projects/validop/trunk
+version: 0.51

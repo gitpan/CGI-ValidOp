@@ -1,0 +1,36 @@
+CGI::ValidOp
+
+Simple validation of CGI parameters and runmodes.
+
+DESCRIPTION
+
+CGI::ValidOp is a CGI parameter validator that also helps you manage runmodes.
+Its aims are similar to Perl's: make the easy jobs easy and the complex jobs
+possible.
+
+CGI parameter validation is boring, and precisely for that reason it's easy to
+get wrong or ignore.  CGI::ValidOp takes as much of the repetition as possible
+out of this job, replacing it with a simple interface.  Any data provided by
+CGI::ValidOp's parameter methods will have been untainted and validated.
+
+In addition to validating parameters, CGI::ValidOp has a number of methods for
+dealing with runmodes (henceforth referred to as 'ops').  In fact, the 'op'
+concept is key to ValidOp's advanced usage: parameters are subsidiary to ops.
+Each op has zero or more parameters, each defined with as much or as little
+specificity as you please.
+
+If you're going to trust someone else's code for security purposes it's nice to
+have proof that it works.  CGI::ValidOp has an extensive test suite that checks
+every part of its operation, particularly the validation routines.  I keep the
+current version running at http://sonofhans.net/validop with a full test
+page.  If you can produce unexpected output, file a bug report.
+
+AUTHOR
+
+Randall Hansen <randall@sonofhans.net>
+
+ACKNOWLEDGEMENTS
+
+Thanks to:  Josh Heumann for good simplification advice; Joshua Keroes for
+trading code review for beer; Alison Randall for thinking it was a good idea in
+the first place.
