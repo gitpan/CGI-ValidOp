@@ -6,6 +6,7 @@ all_from 'lib/CGI/ValidOp.pm';
 requires 'HTML::Entities' => 0;
 requires 'CGI'            => 0;
 
+test_requires 'Test::Taint' => 0;
 test_requires 'Test::More' => 0;
 test_requires 'Test::Exception' => 0;
 

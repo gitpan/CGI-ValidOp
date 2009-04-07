@@ -1,0 +1,7 @@
+0.52    Tue, 07 Apr 2009 08:40:23 -0700
+
+  - add missing prereq for Test::Taint
+
+0.51    Mon, 06 Apr 2009
+
+  - First CPAN release
