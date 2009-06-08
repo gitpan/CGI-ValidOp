@@ -15,6 +15,7 @@ lib/CGI/ValidOp/Check/alternative.pm
 lib/CGI/ValidOp/Check/checkbox.pm
 lib/CGI/ValidOp/Check/date.pm
 lib/CGI/ValidOp/Check/demographics.pm
+lib/CGI/ValidOp/Check/required_if.pm
 lib/CGI/ValidOp/Check/email.pm
 lib/CGI/ValidOp/Check/length.pm
 lib/CGI/ValidOp/Check/number.pm
@@ -46,6 +47,7 @@ t/16check_date.t
 t/17check_sql.t
 t/18check_email.t
 t/19check_alternative.t
+t/20check_required_if.t
 t/91cgi_basic.cgi
 t/99workflow1.t
 t/99workflow2.t
