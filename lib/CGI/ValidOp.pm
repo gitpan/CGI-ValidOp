@@ -2,7 +2,7 @@ package CGI::ValidOp;
 use strict;
 use warnings;
 
-our $VERSION = '0.53';
+our $VERSION = '0.54';
 
 use base qw/ CGI::ValidOp::Base /;
 use CGI::ValidOp::Op;
@@ -209,7 +209,7 @@ sub make_params {
     if( $self->allow_unexpected ) {
         for( keys %$vars ) {
             next if $_ eq $self->runmode_name; # don't make one for runmode
-            if (/\[/) {
+            if (/\[/ || /^object--/) {
                 $self->append_to_object($_);
             } else {
                 $self->add_param( $_ ) unless $self->Op->Param( $_ );
@@ -229,7 +229,8 @@ sub append_to_object {
 
     $self->{_objects} ||= { };
 
-    my ($name) = $param_name =~ /^([^\[]+)/;
+    $param_name =~ /^object--(\w+)--/ || $param_name =~ /^([^\[]+)/;
+    my $name = $1;
 
     return unless ($self->{_objects}{$name});
 
@@ -751,9 +752,11 @@ This program is free software; you may redistribute it and/or modify it under th
 
 See http://www.perl.com/perl/misc/Artistic.html
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Randall Hansen <legless@cpan.org>
+
+Chad Granum <exodist7@gmail.com>
 
 =cut
 

@@ -29,13 +29,13 @@ use_ok('CGI::ValidOp');
     my $obj = init_obj_via_cgi_pm(
         {
             op => 'add',
-            'object--stuff--0--name' => '123 Foobar',
-            'object--stuff--0--item' => '8675309',
-            'object--stuff--0--number'     => 'Funkytown',
-            'object--stuff--0--shipping'    => 'PA',
-            'object--stuff--0--client_email' => 'shorts@shorts.com',
-            'object--stuff--0--client'       => 'bob',
-            'object--stuff--0--no_client'    => 0,
+            'stuff[0][name]' => '123 Foobar',
+            'stuff[0][item]' => '8675309',
+            'stuff[0][number]'     => 'Funkytown',
+            'stuff[0][shipping]'    => 'PA',
+            'stuff[0][client_email]' => 'shorts@shorts.com',
+            'stuff[0][client]'       => 'bob',
+            'stuff[0][no_client]'    => 0,
         },
         $ops2
     );
@@ -68,13 +68,13 @@ SKIP: {
     $obj = init_obj_via_cgi_pm(
         {
             op => 'add',
-            'object--stuff--0--name' => '123 Foobar',
-            'object--stuff--0--item' => '8675309',
-            'object--stuff--0--number'     => 'Funkytown',
-            'object--stuff--0--shipping'    => 'PA',
-            'object--stuff--0--client_email' => 'shorts@shorts.com',
-            'object--stuff--0--client'       => 'bob',
-            'object--stuff--0--no_client'    => 0,
+            'stuff[0][name]' => '123 Foobar',
+            'stuff[0][item]' => '8675309',
+            'stuff[0][number]'     => 'Funkytown',
+            'stuff[0][shipping]'    => 'PA',
+            'stuff[0][client_email]' => 'shorts@shorts.com',
+            'stuff[0][client]'       => 'bob',
+            'stuff[0][no_client]'    => 0,
         },
         $ops3
     );

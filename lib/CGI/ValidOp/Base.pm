@@ -91,7 +91,7 @@ sub set_name {
     croak $e{ preq }
         unless $name;
     croak $e{ regex }
-        unless $name =~ /^[\w\[\]]+$/;
+        unless $name =~ /^[\w\[\]-]+$/;
 
     $self->{ name } = $name;
     $self->{ name };

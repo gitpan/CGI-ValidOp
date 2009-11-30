@@ -5,7 +5,7 @@ use strict;
 use lib qw/ t lib /;
 
 use CGI::ValidOp::Test;
-use Test::More tests => 238;
+use Test::More tests => 253;
 use vars qw/ $one $vars $ops $op $param @params %vars /;
 use Data::Dumper;
 
@@ -623,6 +623,7 @@ SKIP: {
 
     package main;
 
+#{{{ Old system with []
     $one = CGI::ValidOp->new(
         {
             step2_save => {
@@ -785,4 +786,169 @@ SKIP: {
             object_errors => [ ],
         }
     );
+#}}}
+#{{{ New system with object--x--#--x
+    $one = CGI::ValidOp->new(
+        {
+            step2_save => {
+                -on_error => 'step2',
+                foo => {
+                    -construct_object => 'Foo',
+                    one => [ 'One', 'required' ],
+                    two => [ 'Two', 'required' ],
+                    three => [ 'Three', 'required' ],
+                }
+            }
+        }
+    );
+
+    isa_ok($one, 'CGI::ValidOp');
+
+    $one->set_vars(
+        {
+            op => 'step2_save',
+            'object--foo--0--one'  => '1',
+            'object--foo--0--two'  => '2',
+            'object--foo--0--three' => '3',
+        }
+    );
+
+    ok ($objects = $one->objects('foo'));
+
+    isa_ok($objects->[0], 'Foo');
+
+    can_ok($objects->[0], 'one');
+    can_ok($objects->[0], 'two');
+    can_ok($objects->[0], 'three');
+
+    is ($objects->[0]->one, 1);
+    is ($objects->[0]->two, 2);
+    is ($objects->[0]->three, 3);
+
+    is_deeply($one->objects,
+        {
+            'foo' => [
+                bless(
+                    {
+                        'one'   => 1,
+                        'two'   => 2,
+                        'three' => 3,
+                    },
+                    'Foo'
+                )
+            ]
+        }
+    );
+
+    $one = CGI::ValidOp->new(
+        {
+            step2_save => {
+                -on_error => 'step2',
+                # addresses
+                client_address => {
+                    -min_objects   => 1,
+                    -max_objects   => 3,
+                    address1       => [ 'Address 0 Line 1',    'required' ],
+                    city           => [ 'Address 0 City',      'required' ],
+                    state          => [ 'Address 0 State',     'required' ],
+                    postcode       => [ 'Address 0 Post Code', 'required' ],
+                    not_required   => [ 'Address 0 Not Required' ],
+                }
+            }
+        }
+    );
+
+    ok ($one->isa('CGI::ValidOp'));
+
+    $one->set_vars(
+        {
+            op                            => 'step2_save',
+            'object--client_address--0--address1' => 'foo1',
+            'object--client_address--0--city'     => 'bar1',
+            'object--client_address--0--state'    => 'baz1',
+            'object--client_address--0--postcode' => 'quux1',
+            'object--client_address--0--not_required' => 'not_required!!!',
+            'object--client_address--1--address1' => 'foo2',
+            'object--client_address--1--city'     => 'bar2',
+            'object--client_address--1--state'    => 'baz2',
+            'object--client_address--1--postcode' => 'quux2',
+            'object--client_address--2--address1' => 'foo3',
+            'object--client_address--2--city'     => 'bar3',
+            'object--client_address--2--state'    => 'baz3',
+            'object--client_address--2--postcode' => 'quux3',
+        }
+    );
+
+    is_deeply(
+        $one->objects('client_address'),
+        [
+            {
+                address1 => 'foo1',
+                city     => 'bar1',
+                state    => 'baz1',
+                postcode => 'quux1',
+                not_required => 'not_required!!!',
+            },
+            {
+                address1 => 'foo2',
+                city     => 'bar2',
+                state    => 'baz2',
+                postcode => 'quux2',
+                not_required => undef,
+            },
+            {
+                address1 => 'foo3',
+                city     => 'bar3',
+                state    => 'baz3',
+                postcode => 'quux3',
+                not_required => undef,
+            }
+        ]
+    );
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# object_errors
+
+    $one = CGI::ValidOp->new(
+        {
+            step2_save => {
+                -on_error => 'step2',
+                # addresses
+                client_address => {
+                    -min_objects   => 1,
+                    -max_objects   => 3,
+                    address1       => [ 'Address 0 Line 1',    'required' ],
+                    city           => [ 'Address 0 City',      'required' ],
+                    state          => [ 'Address 0 State',     'required' ],
+                    postcode       => [ 'Address 0 Post Code', 'required' ],
+                    not_required   => [ 'Address 0 Not Required' ],
+                }
+            }
+        }
+    );
+
+    ok ($one->isa('CGI::ValidOp'));
+
+    $one->set_vars(
+        {
+            op                            => 'step2_save',
+        }
+    );
+
+    is_deeply($one->object_errors,
+        {
+            client_address => {
+                global_errors => [ 'object violation: min_objects (1) has been violated' ],
+                object_errors => [ ],
+            }
+        }
+    );
+
+    is_deeply($one->object_errors('client_address'),
+        {
+            global_errors => [ 'object violation: min_objects (1) has been violated' ],
+            object_errors => [ ],
+        }
+    );
+#}}}
 }

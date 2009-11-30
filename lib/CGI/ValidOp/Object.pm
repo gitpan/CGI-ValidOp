@@ -94,7 +94,9 @@ sub set_var {
         unless (defined $args->{name} and exists $args->{value});
 
     # XXX: this regex parses foo[0][key] into "foo", 0, "key". Don't touch it.
-    my ($param_name, $index, $key) = $args->{name} =~ /^([^\[]+?)\[(\d+?)\]\[([^\]]+?)\]$/;
+    $args->{name} =~ /^([^\[]+?)\[(\d+?)\]\[([^\]]+?)\]$/
+        || $args->{name} =~ /^object--(\w+)--(\d+)--(\w+)/;
+    my ($param_name, $index, $key) = ($1, $2, $3);
 
     unless (defined($param_name) && defined($index) && defined($key)) {
         ($param_name, $index, $key) = map { defined($_) ? $_ : "Unknown" } ($param_name, $index, $key);
@@ -333,9 +335,11 @@ CGI::ValidOp::Object - CGI<->object bridge for CGI::ValidOp
 
 Implements a CGI<->object bridge.  Used internally by CGI::ValidOp; please see the L<CGI::ValidOp> documentation.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Erik Hollensbe <erik@hollensbe.org>
+
+Chad Granum <exodist7@gmail.com>
 
 =head1 COPYRIGHT
 

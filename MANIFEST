@@ -1,3 +1,4 @@
+bin/encode.pl
 Changes
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
@@ -15,10 +16,10 @@ lib/CGI/ValidOp/Check/alternative.pm
 lib/CGI/ValidOp/Check/checkbox.pm
 lib/CGI/ValidOp/Check/date.pm
 lib/CGI/ValidOp/Check/demographics.pm
-lib/CGI/ValidOp/Check/required_if.pm
 lib/CGI/ValidOp/Check/email.pm
 lib/CGI/ValidOp/Check/length.pm
 lib/CGI/ValidOp/Check/number.pm
+lib/CGI/ValidOp/Check/required_if.pm
 lib/CGI/ValidOp/Check/sql.pm
 lib/CGI/ValidOp/Check/text.pm
 lib/CGI/ValidOp/Object.pm
@@ -36,7 +37,9 @@ t/01base.t
 t/02check.t
 t/03param.t
 t/04op.t
+t/05object-legacy.t
 t/05object.t
+t/06object-new.t
 t/10validop.t
 t/11check_length.t
 t/12check_text.t
@@ -54,4 +57,5 @@ t/99workflow2.t
 t/99workflow3.t
 t/99workflow4.t
 t/99workflow5.t
+t/99workflow6.t
 TODO
