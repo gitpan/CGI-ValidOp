@@ -2,7 +2,7 @@ package CGI::ValidOp;
 use strict;
 use warnings;
 
-our $VERSION = '0.54';
+our $VERSION = '0.55';
 
 use base qw/ CGI::ValidOp::Base /;
 use CGI::ValidOp::Op;
@@ -211,9 +211,9 @@ sub make_params {
             next if $_ eq $self->runmode_name; # don't make one for runmode
             if (/\[/ || /^object--/) {
                 $self->append_to_object($_);
-            } else {
-                $self->add_param( $_ ) unless $self->Op->Param( $_ );
             }
+            # Make it available even if it is added to an object
+            $self->add_param( $_ ) unless $self->Op->Param( $_ );
         }
     }
     # set all tainted values

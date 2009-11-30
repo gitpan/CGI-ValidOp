@@ -1,3 +1,7 @@
+0.55    Mon, 30 Dec 2009 11:34:47 -0800
+
+  - Make object params available through standard interface
+
 0.54    Mon, 30 Dec 2009 10:50:00 -0800
 
   - Add new way to format object cgi parameters
