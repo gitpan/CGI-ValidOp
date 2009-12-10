@@ -614,7 +614,7 @@ BEGIN { use_ok( 'CGI::ValidOp' )}
     is( $one->op, 'default' );
 
 SKIP: {
-    skip "no Loompa", 15 unless eval { require Loompa; 1 };
+    skip "no Loompa", 30 unless eval { require Loompa; 1 };
     package Foo;
     our @ISA = qw(Loompa);
 

@@ -26,4 +26,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://svn.opensourcery.com/public/projects/validop/trunk
-version: 0.55
+version: 0.56

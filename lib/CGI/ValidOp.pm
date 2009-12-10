@@ -2,7 +2,7 @@ package CGI::ValidOp;
 use strict;
 use warnings;
 
-our $VERSION = '0.55';
+our $VERSION = '0.56';
 
 use base qw/ CGI::ValidOp::Base /;
 use CGI::ValidOp::Op;

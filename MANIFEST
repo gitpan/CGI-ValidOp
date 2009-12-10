@@ -38,7 +38,6 @@ t/02check.t
 t/03param.t
 t/04op.t
 t/05object-legacy.t
-t/05object.t
 t/06object-new.t
 t/10validop.t
 t/11check_length.t
